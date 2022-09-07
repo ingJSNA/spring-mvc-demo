@@ -12,6 +12,8 @@
 <h:body>
 <h1>Spring Web with Primefaces</h1>
 <h:form>
+    <p:growl id="msgs" showDetail="true"/>
+
 <h:panelGrid id="theGrid" columns="3">
     <h:outputText value="Nombre"/>
     <h:inputText id="name" binding="#{name}" required="true"
@@ -24,18 +26,41 @@
     <h:message for="description" style="color:red;"/>
 
     <h:commandButton value="Añadir"
-                     action="#{productBean.createProduct(name.value, description.value)}"/>
+                     action="#{productBean.createProduct()}"/>
 </h:panelGrid>
 
-<p:dataTable var="product" value="#{productBean.products}" emptyMessage="No hay productos">
+<p:dataTable var="product" value="#{productBean.products}" emptyMessage="No hay productos" editable="true">
+
+    <p:ajax event="rowEdit" listener="#{productBean.onRowEdit}"/>
+
     <p:column headerText="Id">
         <h:outputText value="#{product.id}"/>
     </p:column>
     <p:column headerText="Nombre">
-        <h:outputText value="#{product.name}"/>
+        <p:cellEditor>
+            <f:facet name="output">
+                <h:outputText value="#{product.name}"/>
+            </f:facet>
+            <f:facet name="input">
+                <p:inputText id="name" value="#{product.name}" style="width:100%"/>
+            </f:facet>
+        </p:cellEditor>
     </p:column>
     <p:column headerText="Descripción">
-        <h:outputText value="#{product.description}"/>
+        <p:cellEditor>
+            <f:facet name="output">
+                <h:outputText value="#{product.description}"/>
+            </f:facet>
+            <f:facet name="input">
+                <p:inputText id="description" value="#{product.description}" style="width:100%"/>
+            </f:facet>
+        </p:cellEditor>
+    </p:column>
+    <p:column>
+        <p:commandButton icon="ui-icon-trash"
+                         title="Borrar"
+                         actionListener="#{productBean.remove(product)}"
+                         ajax="false" />
     </p:column>
 </p:dataTable>
 </h:form>
