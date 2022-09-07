@@ -7,14 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * Entity bean with JPA annotations
- * Hibernate provides JPA implementation
- * @author pankaj
- *
- */
 @Entity
-@Table(name="PRODUCT")
+@Table(name="Product")
 public class Product {
 
 	@Id
