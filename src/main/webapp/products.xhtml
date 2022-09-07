@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Welcome</title>
+</h:head>
+
+<h:body>
+<h1>Spring Web with Primefaces</h1>
+<h:form>
+<h:panelGrid id="theGrid" columns="3">
+    <h:outputText value="Nombre"/>
+    <h:inputText id="name" binding="#{name}" required="true"
+                 requiredMessage="#{msg['message.valueRequired']}" value="#{productBean.newProduct.name}"/>
+    <h:message for="name" style="color:red;"/>
+
+    <h:outputText value="Descripción"/>
+    <h:inputText id="description" binding="#{description}" required="true"
+                 requiredMessage="#{msg['message.valueRequired']}" value="#{productBean.newProduct.description}"/>
+    <h:message for="description" style="color:red;"/>
+
+    <h:commandButton value="Añadir"
+                     action="#{productBean.createProduct(name.value, description.value)}"/>
+</h:panelGrid>
+
+<p:dataTable var="product" value="#{productBean.products}" emptyMessage="No hay productos">
+    <p:column headerText="Id">
+        <h:outputText value="#{product.id}"/>
+    </p:column>
+    <p:column headerText="Nombre">
+        <h:outputText value="#{product.name}"/>
+    </p:column>
+    <p:column headerText="Descripción">
+        <h:outputText value="#{product.description}"/>
+    </p:column>
+</p:dataTable>
+</h:form>
+
+</h:body>
+
+</html>

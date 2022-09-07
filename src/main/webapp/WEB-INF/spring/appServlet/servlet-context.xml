@@ -63,5 +63,8 @@
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 
+	<!-- Faces -->
+
+
 
 </beans:beans>
